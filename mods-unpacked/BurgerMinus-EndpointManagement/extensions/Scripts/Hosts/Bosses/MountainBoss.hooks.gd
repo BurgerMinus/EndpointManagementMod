@@ -7,7 +7,7 @@ func _ready(chain: ModLoaderHookChain):
 	
 	chain.execute_next()
 	
-	if Upgrades.get_antiupgrade_value('harder_bosses') >= 1:
+	if cpu.AI.em1:
 		cpu.max_health = 5000
 		cpu.init_healthbar()
 
@@ -18,7 +18,7 @@ func start_ram(chain: ModLoaderHookChain):
 	
 	chain.execute_next() # run vanilla method
 	
-	if cpu.max_health == 5000: # em1 check
+	if cpu.AI.em1:
 		cpu.accel += 1
 		cpu.max_speed += 200
 
@@ -27,7 +27,7 @@ func take_damage(chain: ModLoaderHookChain, attack):
 	
 	var cpu := chain.reference_object as CPU_BOSS
 	
-	if cpu.max_health == 5000: # em1 check
+	if cpu.AI.em1:
 		if cpu.ramming and not cpu.is_player:
 			attack.damage /= 1.5
 	
@@ -40,7 +40,7 @@ func spawn_explosion_wave(chain: ModLoaderHookChain, endpoint, damage = 15, delt
 	
 	delta_delay /= GameManager.dm_game_speed_mod
 	
-	if cpu.max_health == 5000: # em1 check
+	if cpu.AI.em1:
 		delta_delay *= 0.5
 	
 	return chain.execute_next([endpoint, damage, delta_delay]) # run vanilla method
@@ -50,7 +50,7 @@ func update_laser_sweep(chain: ModLoaderHookChain, delta):
 	
 	var cpu := chain.reference_object as CPU_BOSS
 	
-	if cpu.max_health == 5000: # em1 check
+	if cpu.AI.em1:
 		delta *= 1.5
 		if cpu.AI.phase > 0:
 			delta *= 2.0
@@ -68,7 +68,7 @@ func point_laser_at_point(chain: ModLoaderHookChain, laser_endpoint):
 	
 	laser_endpoint = chain.execute_next([laser_endpoint]) # run vanilla method
 	
-	if cpu.max_health == 5000: # em1 check
+	if cpu.AI.em1:
 		
 		laser_endpoint += 66*laser_dir 
 		
