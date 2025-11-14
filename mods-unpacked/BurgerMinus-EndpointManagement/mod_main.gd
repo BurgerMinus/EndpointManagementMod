@@ -14,8 +14,8 @@ func _init() -> void:
 		'desc' : "Greatly increases the difficulty of +1 boss per stack",
 		'increase_per_rank' : 1,
 		'decreasing' : false,
-		'value_per_rank': [2.0, 3.0, 5.0], 
-		'max_rank' : 1,
+		'value_per_rank': [2.0, 3.0, 4.0], 
+		'max_rank' : 2,
 		'percentage' : false,
 		'progression_flag' : 'antiupgrade_harder_bosses',
 		'daily_run_compatible' : false
@@ -25,9 +25,26 @@ func _init() -> void:
 	script_hooks_path = mod_dir_path.path_join("extensions/Scripts")
 	
 	ModLoaderMod.install_script_hooks("res://Scripts/Save/GlobalProgression.gd", mod_dir_path.path_join("extensions/Scripts/Save/GlobalProgression.hooks.gd"))
+	
+	install_em1()
+	
+	install_em2()
+	
+
+func install_em1():
+	
 	ModLoaderMod.install_script_hooks("res://Scripts/Hosts/Bosses/MountainBoss.gd", mod_dir_path.path_join("extensions/Scripts/Hosts/Bosses/MountainBoss.hooks.gd"))
 	ModLoaderMod.install_script_extension(mod_dir_path.path_join("extensions/Scripts/Hosts/Bosses/MountainBossAI.gd"))
 
+func install_em2():
+	
+	ModLoaderMod.install_script_hooks("res://Scripts/Hosts/Bosses/Lv2/CityBoss.gd", mod_dir_path.path_join("extensions/Scripts/Hosts/Bosses/Lv2/CityBoss.hooks.gd"))
+	ModLoaderMod.install_script_extension(mod_dir_path.path_join("extensions/Scripts/Hosts/Bosses/Lv2/CityBossAI.gd"))
+	
+	ModLoaderMod.install_script_hooks("res://Scripts/Hosts/Bosses/Lv2/CityBossOrb.gd", mod_dir_path.path_join("extensions/Scripts/Hosts/Bosses/Lv2/CityBossOrb.hooks.gd"))
+	ModLoaderMod.install_script_extension(mod_dir_path.path_join("extensions/Scripts/Hosts/Bosses/Lv2/CityBossOrbAI.gd"))
+	
+	ModLoaderMod.install_script_hooks("res://Scripts/Hosts/Bosses/Lv2/CityBossOrbController.gd", mod_dir_path.path_join("extensions/Scripts/Hosts/Bosses/Lv2/CityBossOrbController.hooks.gd"))
 
 func _ready() -> void:
 	ModLoaderLog.info("Ready!", EM_LOG_NAME)
