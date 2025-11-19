@@ -96,16 +96,24 @@ func _physics_process(chain: ModLoaderHookChain, delta):
 	else:
 		chain.execute_next([delta])
 
+func get_player_control_duration(chain: ModLoaderHookChain):
+	var orb := chain.reference_object as CityBossOrb
+	if orb.AI.em2:
+		return 8 if orb.tethered else 4
+	else:
+		return chain.execute_next()
+
 # reset stun resist
 func break_tether(chain: ModLoaderHookChain):
 	
 	var orb := chain.reference_object as CityBossOrb
 	
-	chain.execute_next()
-	
 	orb.stun_resist = 1.0
-	orb.effect_system.effect_immunities = [orb.EffectType.ACCEL_MULT, orb.EffectType.SPEED_MULT, orb.EffectType.SPEED_OVERRIDE]
-	orb.effect_system.cancel_all_effects()
+	if orb.AI.em2:
+		orb.effect_system.effect_immunities = [orb.EffectType.ACCEL_MULT, orb.EffectType.SPEED_MULT, orb.EffectType.SPEED_OVERRIDE]
+		orb.effect_system.cancel_all_effects()
+	
+	chain.execute_next()
 
 # reset stun resist temporarily
 func on_shield_broken(chain: ModLoaderHookChain):
