@@ -85,7 +85,7 @@ EM3 Tachi Changes:
 
 EM3 Thistle Changes:
 - Thistle will attempt to hit the player with suspended lasers during a bomb boost (it is not very good at it)
-- Thistle retains 10% movement speed while charging a laser
+- Thistle retains 25% movement speed while charging a laser
 
 EM3 Epitaph Changes:
 - 25% increased bat knockback
